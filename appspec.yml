@@ -1,0 +1,21 @@
+version: 0.0
+os: linux
+files:
+- source: ./
+destination: /var/www/html
+overwrite: yes
+hooks:
+BeforeInstall:
+- location: scripts/stop_apache.sh
+rumas: root
+ApplicationStart:
+- location: scripts/changepermission.sh
+timeout: 3600
+AfterInstall:
+- location: scripts/start_apache.sh
+timeout: 180
+rumas: root
+ValidateService:
+- location: scripts/status_apache.sh
+timeout: 3600
+rumas: root
